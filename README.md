@@ -1,8 +1,10 @@
-# Jenkins pipeline - Create resource in Azure Cloud with Terraform
+# CD pipeline - Create resource in Azure Cloud with Terraform
 
 This example demonstrates how to deploy a storage account in Azure using Terraform templates via Port Actions.
 
-The workflow is executed through a Jenkins pipeline.
+The repository contains examples for the following:
+- Jenkins Pipeline
+- Azure Devops Pipeline
 
 ## Prerequisites
 
@@ -15,7 +17,7 @@ The workflow is executed through a Jenkins pipeline.
 
 Follow these steps to get started:
 
-1. Create the following as Jenkins Credentials:
+1. Create the following as credentials:
     1. Create the Port Credentials using the `Username with password` kind.
         1. `PORT_CLIENT_ID` - Port Client ID [learn more](https://docs.getport.io/build-your-software-catalog/sync-data-to-catalog/api/#get-api-token).
         2. `PORT_CLIENT_SECRET` - Port Client Secret [learn more](https://docs.getport.io/build-your-software-catalog/sync-data-to-catalog/api/#get-api-token).
@@ -38,12 +40,15 @@ Follow these steps to get started:
 
 > In the `variables.tf`, replace the default `resource_group_name` with your resource group from your Azure account. Check this [guide](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/manage-resource-groups-portal) to find your resource groups. You may also wish to set the default values of other variables.
 
-5. Create a Jenkins pipeline using the provided [file](./Jenkinsfile):
+5. Create a pipeline
+   1. A Jenkins pipeline using the provided [file](./Jenkinsfile):
+   
+       1. [Enable webhook trigger for a pipeline](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#enabling-webhook-trigger-for-a-pipeline)
+       2. [Define variables for a pipeline](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#defining-variables): Define the STORAGE_NAME, STORAGE_LOCATION, PORT_RUN_ID and BLUEPRINT_ID variables.
+       3. [Token Setup](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#token-setup): Define the token to match `JOB_TOKEN` as configured in your Port Action.
+   
+       NB: The pipeline includes a post run task of `cleanWs` whose `deleteDirs` parameter means that all generated files and temporary build artifacts will be deleted. Therefore, be sure to either change it or add backend for your terraform state on initialisation.
 
-    1. [Enable webhook trigger for a pipeline](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#enabling-webhook-trigger-for-a-pipeline)
-    2. [Define variables for a pipeline](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#defining-variables): Define the STORAGE_NAME, STORAGE_LOCATION, PORT_RUN_ID and BLUEPRINT_ID variables.
-    3. [Token Setup](https://docs.getport.io/create-self-service-experiences/setup-backend/jenkins-pipeline/#token-setup): Define the token to match `JOB_TOKEN` as configured in your Port Action.
+   2. Azure Devops pipeline using this [file](./azure-pipelines.yml).
 
-    NB: The pipeline includes a post run task of `cleanWs` whose `deleteDirs` parameter means that all generated files and temporary build artifacts will be deleted. Therefore, be sure to either change it or add backend for your terraform state on initialisation.
-
-6. Trigger the action from the [self-service](https://app.getport.io/self-serve) tab of your Port application.
+7. Trigger the action from the [self-service](https://app.getport.io/self-serve) tab of your Port application.
