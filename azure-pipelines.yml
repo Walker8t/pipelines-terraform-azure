@@ -10,11 +10,11 @@ resources:
 variables:
   - group: port-credentials
   - name: STORAGE_NAME
-    value: ${{ parameters.PortWebhook.payload.properties.storage_name }}
+    value: ${{ parameters.port_trigger.payload.properties.storage_name }}
   - name: STORAGE_LOCATION
-    value: ${{ parameters.PortWebhook.payload.properties.storage_location }}
+    value: ${{ parameters.port_trigger.payload.properties.storage_location }}
   - name: PORT_RUN_ID
-    value: ${{ parameters.PortWebhook.context.runId }}
+    value: ${{ parameters.port_trigger.context.runId }}
 
 jobs:
 - job: DeployJob
