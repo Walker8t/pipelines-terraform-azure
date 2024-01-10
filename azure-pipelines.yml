@@ -49,10 +49,12 @@ jobs:
       terraform init -input=false
     displayName: 'Initialize configuration'
     failOnStderr: true
+    workingDirectory: 'terraform'
 
   - script: |
       terraform validate
     displayName: 'Terraform Validate'
+    workingDirectory: 'terraform'
 
   - script: |
       tf_plan_and_apply() {
@@ -76,6 +78,7 @@ jobs:
       tf_plan_and_apply azure
       tf_plan_and_apply port
     displayName: 'Terraform changes to Azure and Port'
+    workingDirectory: 'terraform'
     env:
       TF_VAR_resource_group_name: arete-resources
       TF_VAR_port_client_id: $(PORT_CLIENT_ID)
@@ -96,3 +99,4 @@ jobs:
           }' \
         "https://api.getport.io/v1/actions/runs/$(PORT_RUN_ID)"
     displayName: 'Update Run Status'
+    workingDirectory: 'terraform'
