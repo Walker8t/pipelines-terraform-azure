@@ -4,8 +4,8 @@ pool: Default
 
 resources:
   webhooks:
-    - webhook: PortWebhook
-      connection: PortWebhook
+    - webhook: port_trigger
+      connection: port_trigger
 
 variables:
   - group: port-credentials
