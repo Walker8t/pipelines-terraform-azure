@@ -5,6 +5,7 @@ This example demonstrates how to deploy a storage account in Azure using Terrafo
 The repository contains examples for the following:
 - Jenkins Pipeline
 - Azure Devops Pipeline
+- GitHub Workflow
 
 ## Prerequisites
 
