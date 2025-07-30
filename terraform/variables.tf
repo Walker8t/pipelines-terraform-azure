@@ -1,12 +1,12 @@
 variable "resource_group_name" {
   type        = string
-  default     = "myTFResourceGroup"
+  default     = "Port-test"
   description = "RG name in Azure"
 }
 
 variable "location" {
   type        = string
-  default     = "westus2"
+  default     = "canadacentral"
   description = "RG location in Azure"
 }
 
